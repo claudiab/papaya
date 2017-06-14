@@ -1,0 +1,243 @@
+@{
+    ViewData["Title"] = "About hey";
+}
+
+<div class="container" ng-controller="smpIntCalCtrl" >
+
+<div class="row">
+<div class="col-md-12">
+
+  <h3>CALCULATE WHERE YOUR MONEY GOES</h3>
+</div>
+</div>
+        <div class="row" style="margin-top:30px; margin-bottom:30px;border:1px solid #ddd;padding:25px;">
+
+
+            <div class="col-md-6 col-sm-12" style="border-right:2px solid #ddd;padding-right:35px;    height: 550px;">
+
+            <div class="spacing">
+            <b>First, tell us about your loan</b>
+            </div>
+
+             <div class="form-group">
+                     <label>First Payment Date</label>
+                          
+<div class="input-append date" id="dp3" data-date="{{calData.paymentDate}}" data-date-format="dd/mm-/yyyy">
+  <input class="span2 form-control" size="16" type="text" value="{{calData.paymentDate}}" id="datepicker">
+  <span class="add-on"><i class="icon-th"></i></span>
+</div>
+<style>
+.datepicker-switch{
+    text-align: center;
+}
+ </style>
+
+                 </div>
+
+               <div class="form-group">
+
+                     <label>Amount Financed</label>
+                     <input type="text"  class="currency" ng-model="calData.loanAmount"  class="form-control" min="0.01" step="0.01" />
+               </div>
+               <div class="form-group">
+                     <label>Length of Term</label>
+      <select ng-model="selectedTerm" class="form-control">
+     <option value="">---Please select---</option>
+<option ng-repeat="x in terms" value="{{x.value}}">{{x.value}}</option>
+</select>             </div>
+                <div class="form-group">
+                     <label>Interest</label>
+             <input type="text" ng-model="calData.interestRate"  class="form-control"  min="0.01" step="0.01" value="0.03"  />
+                </div>
+@*                 <p>
+                     <label>Loan Amount </label>
+                     <input type="text" ng-model="calData.loanAmount"  />
+                </p>
+            
+                <p>
+                     <label>Interest Rate</label>
+             <input type="number" ng-model="calData.interestRate"  min="0.01" step="0.01" max="250000"/>
+                </p>
+                <p>
+                     <label>Sales Tax rate*</label>
+                     <input type="text" ng-model="calData.salesTaxRate" style="width:70px;" />
+                </p>
+                 <div style="float:right;">
+
+                    <button type="button" class="btn btn-primary btn-lg " ng-click="calculate()">calculate</button>
+                </div> *@
+
+                <button type="button" class="btn btn-primary btn-lg" ng-click="calculate()">Calculate</button>
+            </div>
+            <div class="col-md-6" style="padding-left:25px;">
+<br/>
+               <div class="text-center">
+                <p>
+                    <h4>Your regular monthly payment</h4>
+                </p>
+                     <h1>{{(loanMoPmt || 0)| currency}}</h1>
+                </div>
+<div class="col-md-6 col-sm-6" >
+                        <ul>
+                            <li>Principal</li>
+
+                            <li>Contracted Interest</li>
+
+                            <li>Total Cost</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                         <ul >
+                            <li>{{(loanAmount || 0) | currency}} </li>
+
+
+
+                                    <li>{{(calData.interestRate || 0)}}%</li>
+                                    <li>{{(totalCost|| 0) | currency}}</li>
+
+                        </ul>
+                     </div>
+
+<div id="container" style="width:100%; height:250px;"></div>
+
+         </div>
+                   @*  <div class="col-md-6 " style="padding-left:85px;">
+                         <ul>
+                            <li>{{(loanAmount || 0) | currency}} </li>
+                            <li>{{(totalInterest || 0) | currency}}</li>
+                            <li>{{(totalSalesTax || 0) | currency}}</li>
+                            <li style="margin-top:23px;">
+                                    {{(total60Pmt || 0) | currency}}</li>
+                                    <li>{{(totalInterest|| 0) | currency}}</li>
+                                    <li>{{(totalCost|| 0) | currency}}</li>
+
+                        </ul>
+                     </div> *@
+              @*   <p>
+                     <label>Payment Date</label>
+                         <input type="text" datetime="MM/dd/yyyy" ng-model="calData.paymentDate"  data-provide="calendar"/>
+
+                </p>
+                <p>
+                     <label>How many days late</label>
+                     <input type="text" ng-model="calData.daysLate" />
+                </p>
+                <p>
+                     <label>How many late payments? *</label>
+                         <input type="text" ng-model="calData.latePayments" />
+                </p>
+                 <div style="float:right;margin-top:48px;">
+                <button type="button" class="btn btn-default btn-lg"  >adjust</button>
+                </div>
+            </div> *@
+        </div>
+  @*       <div class="row" style="margin-top:30px; margin-bottom:30px; border:3px solid #ddd;padding:25px;" > *@
+            @* <div class="col-md-6 col-sm-12" style="border-right:2px solid #ddd;padding-right:35px;">
+                <div class="text-center">
+                <p>
+
+                    <h5>Your regular monthly payment</h5>
+                </p>
+                     <h1>{{(loanMoPmt || 0)}}</h1>
+                </div>
+                <div class="row" style="margin-top:30px; margin-bottom:30px;">
+                    <div class="col-md-6 col-sm-6" style="padding-left:85px;">
+                        <ul >
+                            <li>Principal</li>
+                            <li>Interest</li>
+                            <li>Sale Tax</li>
+                                <li style="margin-top:23px;">Total of 60 Payment</li>
+                            <li>Total Loan Interest</li>
+                            <li>Total Cost</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-6" style="padding-left:85px;">
+                         <ul>
+                            <li>{{(loanAmount || 0) | currency}} </li>
+                            <li>{{(totalInterest || 0) | currency}}</li>
+                            <li>{{(totalSalesTax || 0) | currency}}</li>
+                            <li style="margin-top:23px;">
+                                    {{(total60Pmt || 0) | currency}}</li>
+                                    <li>{{(totalInterest|| 0) | currency}}</li>
+                                    <li>{{(totalCost|| 0) | currency}}</li>
+
+                        </ul>
+                     </div>
+                </div>
+            </div> *@
+@*             <div class="col-md-6" style="padding-left:25px;">
+    <div class="text-center">
+            <p>
+                    <h5> Estimated payment and fees applied </h5>
+                 </p>
+                     <h1>{{(loanMoPmt || 0) | currency}} </h1>
+                 </div>
+                 <div class="row" style="margin-top:30px; margin-bottom:30px;">
+                    <div class="col-md-6" style="padding-left:85px;">
+                        <ul>
+                            <li>Principal</li>
+                            <li>Interest</li>
+                            <li>Sale Tax</li>
+                                <li style="margin-top:23px;">Total of 60 Payment</li>
+                            <li>Total Loan Interest</li>
+                            <li>Total Cost</li>
+                            <li class="text-muted" style="margin-top:10px; padding-left:20px;">Late Fees</li>
+                        </ul>
+                    </div>
+                     <div class="col-md-6" style="padding-left:85px;">
+                         <ul>
+                            <li>{{(0|| 0) | currency}}</li>
+                            <li>{{(0|| 0) | currency}}</li>
+                            <li>{{(0|| 0) | currency}}</li>
+                            <li style="margin-top:23px;">  {{(0|| 0) | currency}}</li>
+                            <li>{{(0|| 0) | currency}}</li>
+                            <li>{{(0|| 0) | currency}}</li>
+                            <li class="text-muted" style="margin-top:10px">{{(0|| 0) | currency}}</li>
+
+                        </ul>
+                     </div>
+                </div>
+            </div> *@
+              <div class="row" ng-if="displayAmorSchedule">
+  <div class="col-sm-12 col-md-12">
+    <div class="table-responsive " style="margin-top: 20px; margin-bottom:30px;border:1px solid #ddd;padding:25px; padding-top:0px;" >
+          <table class="table">
+            <thead>
+            <tr><th>
+   <h3>Amortization Schedule * </h3></th> </tr>
+              <tr>
+                <th>Payment Date</th>
+                <th>Payment</th>
+                <th>Per Diem</th>
+                <th>Monthly Interest</th>
+                <th>Interest Paid</th>
+                <th>Principal</th>
+                <th>Balance</th>
+              </tr>
+            </thead>
+            <tbody class="table-hover ">
+              <tr ng-repeat="pmtData in amoPmtData">
+                <th scope="row">{{pmtData.date}}</th>
+                <td>{{pmtData.pmtAmt}}</td>
+                <td>{{pmtData.perDiem}}</td>
+                <td>{{pmtData.totalIntAmt}}</td>
+              
+                <td>{{pmtData.intAmt}}</td>
+                   <td>{{pmtData.principalPmt}}</td>
+                <td>{{pmtData.balanceAmt}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+</div>
+
+    </div>
+        </div>
+        
+ 
+        </div>
+       
+    </div>
+   
+</div>

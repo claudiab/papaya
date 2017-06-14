@@ -1,0 +1,6 @@
+{
+  "directory": "wwwroot/lib",
+      "proxy":"http://cberum1:12C34g56C@b@usaocsecpiwg02:9090/",
+    "https-proxy":"http://cberum1:12C34g56C@b@usaocsecpiwg02:9090/",
+	 "strict-ssl"  : false
+}
